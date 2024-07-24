@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS416 Narrative Visualization</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="./mainChart.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="mainChart">
+
+        </div>
+        <div id="filter">
+            <h1>Sleep Quality Factors</h1>
+            <h2>CS 416 Narrative Viz</h2>
+            <a id="dataset-link" href="https://www.kaggle.com/datasets/uom190346a/sleep-health-and-lifestyle-dataset" target="_blank">Kaggle Dataset</a>
+            <fieldset id="parameters">
+                <legend>Impacted Factor: Sleep Quality</legend>
+                <div>
+                    <input type="radio" id="sd" name="drone" value="Sleep Duration" checked />
+                    <label for="sd">Sleep Duration</label>
+                  </div>
+                
+                  <div>
+                    <input type="radio" id="pal" name="drone" value="Physical Activity Level" />
+                    <label for="pal">Physical Activity Level</label>
+                  </div>
+                
+                  <div>
+                    <input type="radio" id="sl" name="drone" value="Stress Level" />
+                    <label for="sl">Stress Level</label>
+                  </div>
+
+                  <div>
+                    <input type="radio" id="hr" name="drone" value="Heart Rate" />
+                    <label for="hr">Heart Rate</label>
+                  </div>
+
+                  <div>
+                    <input type="radio" id="age" name="drone" value="Age" />
+                    <label for="age">Age</label>
+                  </div>
+            </fieldset>
+
+            <button id="plot-button" onclick="dotplot()">Plot Graph</button>
+        </div>
+    </div>
+</body>
+</html>
