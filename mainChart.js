@@ -13,7 +13,6 @@ let data;
 let count;
 let file = './Sleep_health_and_lifestyle_dataset.csv';
 
-
 function initSVG() {
     svg = d3
         .select(g)
@@ -23,6 +22,7 @@ function initSVG() {
         .append("g")
         .attr("transform",
             "translate(" + 120 + "," + 50 + ")");
+    addHover();
 }
 
 function resetSVG() {
@@ -53,6 +53,27 @@ function setDomainVariable() {
   radios.forEach((radio) => {
     if(radio.checked) {
       X_AXIS = radio.value;
+    }
+  });
+}
+
+function addHover() {
+  document.addEventListener("mouseover", function(event) {
+    if(event.target.tagName === 'circle') {
+      let tooltip = document.createElement("div");
+      let xVal = Math.round(event.target.getAttribute('data-x') * 10) / 10;
+      let yVal = Math.round(event.target.getAttribute('data-y') * 10) / 10;
+      let count = Math.round((event.target.r.baseVal.value / 3) ** 2)
+      tooltip.setAttribute("id", "tooltip");
+      tooltip.style.left = (event.clientX - 200) + "px";
+      tooltip.style.top = (event.clientY - 90) + "px";
+      tooltip.innerHTML = `${X_AXIS}: ${xVal} </br>${Y_AXIS}: ${yVal} </br>Count: ${count}`;
+      document.body.appendChild(tooltip);
+    }
+  });
+  document.addEventListener("mouseout", function(event) {
+    if(event.target.tagName === 'circle') {
+      document.body.removeChild(document.getElementById("tooltip"));
     }
   });
 }
@@ -91,6 +112,7 @@ function dotplot() {
           .range([ graphHeight, 0]);
         svg.append("g")
           .call(d3.axisLeft(y));
+
         svg.append('g')
           .selectAll("dot")
           .data(data)
@@ -99,15 +121,19 @@ function dotplot() {
             .attr("cx", function (d) { return x(+d[X_AXIS]); } )
             .attr("cy", function (d) { return y(+d[Y_AXIS]); } )
             .attr("r", function(d) { return Math.sqrt(weight[+d[Y_AXIS]][+d[X_AXIS]]) * 3; })
+            .transition()
+            .duration(1000)
             .attr("stroke", "#ab992555")
             .attr("stroke-width", "2")
             .style("fill", "#dbc95555")
+            .attr("data-x", function(d) { return +d[X_AXIS]; } )
+            .attr("data-y", function(d) { return +d[Y_AXIS]; } );
+
         svg.append("text")
           .attr("text-anchor", "end")
           .attr("x", labelMargin)
           .attr("y", -15)
           .text(""+Y_AXIS)
-          .attr("id", "Y-AXIS")
+          .attr("id", "Y-AXIS");
     });
-    
 }

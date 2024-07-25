@@ -10,11 +10,18 @@
     <link rel="stylesheet" href="./style.css">
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="./mainChart.js"></script>
+    <script src="./slideshow.js"></script>
+    <!-- d3 annotations source: https://github.com/susielu/d3-annotation/blob/master/d3-annotation.min.js -->
+    <script src="./d3-annotation.min.js"></script>
 </head>
 <body>
     <div id="wrapper">
         <div id="mainChart">
-
+          <div id="textBox">
+            <button onclick="decrementSlide()" class="nav">Back</button>
+            <p id="textBody"></p>
+            <button onclick="incrementSlide()" class="nav">Next</button>
+          </div>
         </div>
         <div id="filter">
             <h1>Sleep Quality Factors</h1>
@@ -45,6 +52,11 @@
                   <div>
                     <input type="radio" id="age" name="drone" value="Age" />
                     <label for="age">Age</label>
+                  </div>
+
+                  <div>
+                    <input type="radio" id="dailysteps" name="drone" value="Daily Steps" />
+                    <label for="dailysteps">Daily Steps</label>
                   </div>
             </fieldset>
 
